@@ -7,7 +7,7 @@ matrix:
     - os: linux
       sudo: required
       env: BUILDARCH=arm64
-      dist: trusty
+      dist: bionic
     - os: osx
 
 language: node_js
