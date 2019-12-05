@@ -7,6 +7,8 @@ else
   sudo apt-get update
   sudo apt-get install -y fakeroot rpm jq
   if [[ $BUILDARCH == "arm64" ]]; then
+    sed 's/^deb /deb [arch=amd64] '/g -i sources.list
+    echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ bionic main" | sudo tee -a /etc/apt/sources.list.d/arm64.list >/dev/null
     sudo dpkg --add-architecture arm64
     sudo apt-get update
     sudo apt-get install libc6-dev-arm64-cross gcc-aarch64-linux-gnu g++-aarch64-linux-gnu pkg-config-aarch64-linux-gnu
