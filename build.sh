@@ -19,6 +19,10 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
   export npm_config_target_arch="$BUILDARCH"
   ../update_settings.sh
 
+  # this task is very slow on mac, so using a keep alive to keep travis alive
+  keep_alive &
+  trap "kill $!" INT TERM EXIT
+
   yarn
   yarn postinstall
   mv product.json product.json.bak
@@ -69,11 +73,7 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
   yarn gulp compile-build
   yarn gulp compile-extensions-build
 
-  # this task is very slow on mac, so using a keep alive to keep travis alive
-  keep_alive &
-  KA_PID=$!
   yarn gulp minify-vscode
-  kill $KA_PID
 
   yarn gulp minify-vscode-reh
   yarn gulp minify-vscode-reh-web
