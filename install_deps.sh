@@ -16,7 +16,7 @@ else
     export CXX=/usr/bin/aarch64-linux-gnu-g++
     export CC_host=/usr/bin/gcc
     export CXX_host=/usr/bin/g++
-    ln -s $(which aarch64-linux-gnu-pkg-config) /usr/local/bin/pkg-config
+    sudo ln -s $(which aarch64-linux-gnu-pkg-config) /usr/local/bin/pkg-config
     export PATH=/usr/local/bin:$PATH
   else
     sudo apt-get install libx11-dev libxkbfile-dev libsecret-1-dev fakeroot rpm jq
