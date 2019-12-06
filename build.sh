@@ -70,12 +70,11 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
   keep_alive &
   KA_PID=$!
 
-  if [[ $BUILDARCH != "arm64" ]]; then
-    yarn gulp compile-build
-    yarn gulp compile-extensions-build
-    yarn gulp minify-vscode-reh
-    yarn gulp minify-vscode-reh-web
-  fi
+  yarn gulp compile-build
+  yarn gulp compile-extensions-build
+
+  yarn gulp minify-vscode-reh
+  yarn gulp minify-vscode-reh-web
 
   if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     npm install --global create-dmg
@@ -93,17 +92,13 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
     yarn gulp "vscode-win32-${BUILDARCH}-system-setup"
     yarn gulp "vscode-win32-${BUILDARCH}-user-setup"
   else # linux
-    if [[ $BUILDARCH == "arm64" ]]; then
-      yarn gulp "vscode-linux-${BUILDARCH}-min"
-      yarn gulp "vscode-linux-${BUILDARCH}-build-deb"
-    else
-      yarn gulp "vscode-linux-${BUILDARCH}-min-ci"
-      yarn gulp "vscode-reh-linux-${BUILDARCH}-min-ci"
-      yarn gulp "vscode-reh-web-linux-${BUILDARCH}-min-ci"
-      yarn gulp "vscode-linux-${BUILDARCH}-build-deb"
-      yarn gulp "vscode-linux-${BUILDARCH}-build-rpm"
-      . ../create_appimage.sh
-    fi
+    yarn gulp vscode-linux-${BUILDARCH}-min-ci
+    yarn gulp vscode-reh-linux-${BUILDARCH}-min-ci
+    yarn gulp vscode-reh-web-linux-${BUILDARCH}-min-ci
+
+    yarn gulp "vscode-linux-${BUILDARCH}-build-deb"
+    yarn gulp "vscode-linux-${BUILDARCH}-build-rpm"
+    . ../create_appimage.sh
   fi
 
   kill $KA_PID
