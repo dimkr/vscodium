@@ -73,9 +73,7 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
   yarn gulp compile-build
   yarn gulp compile-extensions-build
 
-  if [[ $BUILDARCH == "arm64" ]]; then
-    yarn gulp minify-vscode
-  else
+  if [[ $BUILDARCH != "arm64" ]]; then
     yarn gulp minify-vscode-reh
     yarn gulp minify-vscode-reh-web
   fi
