@@ -75,8 +75,12 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
   yarn gulp minify-vscode
   kill $KA_PID
 
-  yarn gulp minify-vscode-reh
-  yarn gulp minify-vscode-reh-web
+  if [[ $BUILDARCH == "arm64" ]]; then
+    yarn gulp minify-vscode
+  else
+    yarn gulp minify-vscode-reh
+    yarn gulp minify-vscode-reh-web
+  fi
 
   if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     npm install --global create-dmg
