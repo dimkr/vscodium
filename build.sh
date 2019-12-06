@@ -3,7 +3,7 @@
 function keep_alive() {
   while true; do
     echo .
-    sleep 60
+    read -t 60
   done
 }
 
