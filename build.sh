@@ -3,7 +3,7 @@
 function keep_alive() {
   while true; do
     echo .
-    read -t 60
+    read -t 60 < /proc/self/fd/1 > /dev/null 2>&1
   done
 }
 
