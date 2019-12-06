@@ -21,6 +21,7 @@ else
     mkdir -p .bin
     sudo ln -s $(which aarch64-linux-gnu-pkg-config) .bin/pkg-config
     export PATH=$(pwd)/.bin:$PATH
+    export PKG_CONFIG_LIBDIR=/usr/lib/aarch64-linux-gnu/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig
   else
     sudo apt-get install libx11-dev libxkbfile-dev libsecret-1-dev fakeroot rpm jq
   fi
