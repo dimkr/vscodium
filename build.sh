@@ -70,10 +70,9 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
   keep_alive &
   KA_PID=$!
 
-  yarn gulp compile-build
-  yarn gulp compile-extensions-build
-
   if [[ $BUILDARCH != "arm64" ]]; then
+    yarn gulp compile-build
+    yarn gulp compile-extensions-build
     yarn gulp minify-vscode-reh
     yarn gulp minify-vscode-reh-web
   fi
