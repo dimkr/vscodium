@@ -78,8 +78,6 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
     yarn gulp minify-vscode-reh-web
   fi
 
-  kill $KA_PID
-
   if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     npm install --global create-dmg
     yarn gulp vscode-darwin-min-ci
@@ -108,6 +106,8 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
       . ../create_appimage.sh
     fi
   fi
+
+  kill $KA_PID
 
   cd ..
 fi
