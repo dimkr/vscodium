@@ -2,7 +2,7 @@
 
 function keep_alive() {
   while true; do
-    date
+    echo .
     sleep 60
   done
 }
