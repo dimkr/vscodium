@@ -66,14 +66,12 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
     sed -i "s/code-oss/codium/" resources/linux/debian/postinst.template
   fi
 
-  yarn gulp compile-build
-  yarn gulp compile-extensions-build
-
   # this task is very slow on mac, so using a keep alive to keep travis alive
   keep_alive &
   KA_PID=$!
-  yarn gulp minify-vscode
-  kill $KA_PID
+
+  yarn gulp compile-build
+  yarn gulp compile-extensions-build
 
   if [[ $BUILDARCH == "arm64" ]]; then
     yarn gulp minify-vscode
@@ -81,6 +79,8 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
     yarn gulp minify-vscode-reh
     yarn gulp minify-vscode-reh-web
   fi
+
+  kill $KA_PID
 
   if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     npm install --global create-dmg
