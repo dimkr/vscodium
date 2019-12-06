@@ -5,7 +5,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
   brew install jq zip
 else
   sudo apt-get update
-  sudo apt-get install -y fakeroot rpm jq
+  sudo apt-get install -y fakeroot jq
   if [[ $BUILDARCH == "arm64" ]]; then
     sed 's/^deb /deb [arch=amd64] '/g -i /etc/apt/sources.list
     echo "deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports/ trusty main" | sudo tee -a /etc/apt/sources.list.d/arm64.list >/dev/null
@@ -24,6 +24,6 @@ else
     export PKG_CONFIG_LIBDIR=/usr/lib/aarch64-linux-gnu/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig
     export LDFLAGS=-L/usr/lib/aarch64-linux-gnu
   else
-    sudo apt-get install libx11-dev libxkbfile-dev libsecret-1-dev fakeroot rpm jq
+    sudo apt-get install libx11-dev libxkbfile-dev libsecret-1-dev rpm
   fi
 fi

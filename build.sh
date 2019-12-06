@@ -95,16 +95,16 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
     yarn gulp "vscode-win32-${BUILDARCH}-user-setup"
   else # linux
     if [[ $BUILDARCH == "arm64" ]]; then
-      yarn gulp vscode-linux-arm64-min
+      yarn gulp "vscode-linux-${BUILDARCH}-min"
+      yarn gulp "vscode-linux-${BUILDARCH}-build-deb"
     else
-      yarn gulp vscode-linux-x64-min-ci
-      yarn gulp vscode-reh-linux-x64-min-ci
-      yarn gulp vscode-reh-web-linux-x64-min-ci
+      yarn gulp "vscode-linux-${BUILDARCH}-min-ci"
+      yarn gulp "vscode-reh-linux-${BUILDARCH}-min-ci"
+      yarn gulp "vscode-reh-web-linux-${BUILDARCH}-min-ci"
+      yarn gulp "vscode-linux-${BUILDARCH}-build-deb"
+      yarn gulp "vscode-linux-${BUILDARCH}-build-rpm"
+      . ../create_appimage.sh
     fi
-
-    yarn gulp "vscode-linux-${BUILDARCH}-build-deb"
-    yarn gulp "vscode-linux-${BUILDARCH}-build-rpm"
-    . ../create_appimage.sh
   fi
 
   cd ..
