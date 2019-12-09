@@ -75,8 +75,8 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
 
   yarn gulp minify-vscode
 
-  yarn gulp minify-vscode-reh
-  yarn gulp minify-vscode-reh-web
+  yarn gulp minify-vscode-reh --verbose
+  yarn gulp minify-vscode-reh-web --verbose
 
   if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     npm install --global create-dmg
