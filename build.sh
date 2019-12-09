@@ -95,7 +95,7 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
     yarn gulp "vscode-win32-${BUILDARCH}-user-setup"
   else # linux
     yarn gulp vscode-linux-${BUILDARCH}-min-ci
-    yarn gulp vscode-reh-linux-${BUILDARCH}-min-ci
+    yarn gulp vscode-reh-linux-${BUILDARCH}-min-ci --verbose
     yarn gulp vscode-reh-web-linux-${BUILDARCH}-min-ci
 
     yarn gulp "vscode-linux-${BUILDARCH}-build-deb"
