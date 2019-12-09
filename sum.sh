@@ -27,7 +27,7 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
     sum_file VSCodiumUserSetup-*.exe
     sum_file VSCodium-win32-*.zip
   else # linux
-    cp vscode/out/*.AppImage .
+    cp out/*.AppImage .
     cp vscode/.build/linux/deb/*/deb/*.deb .
     cp vscode/.build/linux/rpm/*/*.rpm .
 
