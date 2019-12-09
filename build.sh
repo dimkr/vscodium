@@ -73,6 +73,8 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
   yarn gulp compile-build
   yarn gulp compile-extensions-build
 
+  yarn gulp minify-vscode
+
   yarn gulp minify-vscode-reh
   yarn gulp minify-vscode-reh-web
 
