@@ -19,7 +19,7 @@ else
     ;;
   esac
 
-  if [[ -z "$triplet" ]]; then
+  if [[ -n "$triplet" ]]; then
     sed 's/^deb /deb [arch=amd64] '/g -i /etc/apt/sources.list
     echo "deb [arch=$arch] http://ports.ubuntu.com/ubuntu-ports/ trusty main" | sudo tee -a /etc/apt/sources.list.d/$arch.list >/dev/null
     sudo dpkg --add-architecture $arch
