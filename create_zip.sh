@@ -7,6 +7,9 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
   elif [[ "$BUILDARCH" == "arm64" ]]; then
     cd VSCode-linux-arm64
     tar czf ../VSCodium-linux-arm64-${LATEST_MS_TAG}.tar.gz .
+  elif [[ "$BUILDARCH" == "arm" ]]; then
+    cd VSCode-linux-arm
+    tar czf ../VSCodium-linux-arm-${LATEST_MS_TAG}.tar.gz .
   else
     cd VSCode-linux-x64
     tar czf ../VSCodium-linux-x64-${LATEST_MS_TAG}.tar.gz .
