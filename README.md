@@ -60,7 +60,7 @@ scoop install vscodium
 You can always install using the downloads (deb, rpm, tar) on the [releases page](https://github.com/VSCodium/vscodium/releases), but you can also install from [the APT repository](https://packagecloud.io/dimkr/vscodium) using your favorite package manager and get automatic updates:
 
 ```bash
-curl -s https://packagecloud.io/install/repositories/dimkr/vscodium/script.deb.sh | sudo os=ubuntu -E dist=trusty bash
+curl -s https://packagecloud.io/install/repositories/dimkr/vscodium/script.deb.sh | sudo os=ubuntu dist=trusty bash
 sudo apt install codium
 ```
 
