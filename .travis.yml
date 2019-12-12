@@ -32,6 +32,7 @@ before_deploy:
   - ./create_zip.sh
   - ./create_dmg.sh
   - ./sum.sh
+  - ./clean_repo.sh
 
 deploy:
   - provider: releases
