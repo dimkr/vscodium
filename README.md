@@ -57,7 +57,14 @@ scoop install vscodium
 ```
 
 #### <a id="install-with-package-manager"></a>Install with Package Manager (Linux)
-You can always install using the downloads (deb, rpm, tar) on the [releases page](https://github.com/VSCodium/vscodium/releases), but you can also install from [the APT repository](https://packagecloud.io/dimkr/vscodium) using your favorite package manager and get automatic updates. [@paulcarroty](https://github.com/paulcarroty) has set up a repository too, with instructions [here](https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo). Any issues installing VSCodium from this repository should be directed to the repository's issue tracker.
+You can always install using the downloads (deb, rpm, tar) on the [releases page](https://github.com/VSCodium/vscodium/releases), but you can also install from [the APT repository](https://packagecloud.io/dimkr/vscodium) using your favorite package manager and get automatic updates:
+
+```bash
+curl -s https://packagecloud.io/install/repositories/dimkr/vscodium/script.deb.sh | sudo os=ubuntu -E dist=trusty bash
+sudo apt install codium
+```
+
+[@paulcarroty](https://github.com/paulcarroty) has set up a repository too, with instructions [here](https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo). Any issues installing VSCodium from this repository should be directed to the repository's issue tracker.
 
 #### <a id="install-on-arch-linux"></a>Install on Arch Linux
 VSCodium is available in [AUR](https://wiki.archlinux.org/index.php/Arch_User_Repository) as package [vscodium-bin](https://aur.archlinux.org/packages/vscodium-bin/), maintained by [@plague-doctor](https://github.com/plague-doctor).
