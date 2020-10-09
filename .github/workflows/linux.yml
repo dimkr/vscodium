@@ -15,6 +15,7 @@ jobs:
       env:
         OS_NAME: 'linux'
         VSCODE_ARCH: ${{ matrix.vscode_arch }}
+        LDFLAGS: '-static-libgcc -static-libstdc++'
 
     strategy:
       fail-fast: false
