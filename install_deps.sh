@@ -21,6 +21,7 @@ if [[ -n "$triplet" ]]; then
   sudo dpkg --add-architecture $arch
   sudo apt-get update
   sudo apt-get install -y libc6-dev-$arch-cross gcc-$triplet g++-$triplet `apt-cache search x11proto | grep ^x11proto | cut -f 1 -d ' '` xz-utils pkg-config
+  sudo ln -s ../usr/$triplet/lib/ld-linux-${triplet%%-*}.so.1 /lib/
   mkdir -p dl
   cd dl
   apt-get download libx11-dev:$arch libx11-6:$arch libxkbfile-dev:$arch libxkbfile1:$arch libxau-dev:$arch libxdmcp-dev:$arch libxcb1-dev:$arch libsecret-1-dev:$arch libsecret-1-0:$arch libpthread-stubs0-dev:$arch libglib2.0-dev:$arch libglib2.0-0:$arch libffi-dev:$arch libffi6:$arch zlib1g:$arch libpcre3-dev:$arch libpcre3:$arch
@@ -31,6 +32,7 @@ if [[ -n "$triplet" ]]; then
   export CC_host=/usr/bin/gcc
   export CXX_host=/usr/bin/g++
   export PKG_CONFIG_LIBDIR=/usr/lib/$triplet/pkgconfig:/usr/lib/pkgconfig:/usr/share/pkgconfig
+  export LD_LIBRARY_PATH=/usr/$triplet/lib
 else
   sudo apt-get install -y libx11-dev libxkbfile-dev libsecret-1-dev rpm
 fi
