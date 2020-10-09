@@ -20,7 +20,7 @@ if [[ -n "$triplet" ]]; then
   echo "deb [arch=$arch] http://ports.ubuntu.com/ubuntu-ports/ trusty main" | sudo tee -a /etc/apt/sources.list.d/$arch.list >/dev/null
   sudo dpkg --add-architecture $arch
   sudo apt-get update
-  sudo apt-get install -y libc6-dev-$arch-cross gcc-$triplet g++-$triplet `apt-cache search x11proto | grep ^x11proto | cut -f 1 -d ' '` xz-utils pkg-config
+  sudo apt-get install -y libc6-dev-$arch-cross gcc-$triplet g++-$triplet `apt-cache search x11proto | grep ^x11proto | cut -f 1 -d ' '` xz-utils pkg-config qemu-user-static
   sudo ln -s ../usr/$triplet/lib/ld-linux-${triplet%%-*}.so.1 /lib/
   mkdir -p dl
   cd dl
