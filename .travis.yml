@@ -11,12 +11,14 @@ jobs:
         - VSCODE_ARCH=arm64
         - OS_NAME=linux
         - GITHUB_ENV=/dev/null
+        - npm_config_arch=arm64
       dist: trusty
     - os: linux
       env:
         - VSCODE_ARCH=armhf
         - OS_NAME=linux
         - GITHUB_ENV=/dev/null
+        - npm_config_arch=armv7l
       dist: trusty
     - os: osx
       osx_image: xcode12

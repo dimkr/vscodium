@@ -5,9 +5,6 @@ set -e
 if [[ "$CI_WINDOWS" == "True" ]]; then
   export npm_config_arch="$BUILDARCH"
   export npm_config_target_arch="$BUILDARCH"
-else
-  export npm_config_arch="$VSCODE_ARCH"
-  export npm_config_target_arch="$VSCODE_ARCH"
 fi
 
 cp -rp src/* vscode/
