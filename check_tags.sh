@@ -2,7 +2,11 @@
 
 set -e
 
-REPOSITORY=${GITHUB_REPOSITORY:-"VSCodium/vscodium"}
+if [[ "$TRAVIS" == "true" ]]; then
+  REPOSITORY=${TRAVIS_REPO_SLUG:-"VSCodium/vscodium"}
+else
+  REPOSITORY=${GITHUB_REPOSITORY:-"VSCodium/vscodium"}
+fi
 GITHUB_RESPONSE=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/$REPOSITORY/releases/tags/$LATEST_MS_TAG)
 VSCODIUM_ASSETS=$(echo $GITHUB_RESPONSE | jq '.assets')
 
@@ -66,6 +70,16 @@ if [ "$GITHUB_TOKEN" != "" ]; then
   else
     echo "Release assets do not exist at all, continuing build"
     export SHOULD_BUILD="yes"
+  fi
+  if [[ "$TRAVIS" == "true" ]]; then
+    if git rev-parse $LATEST_MS_TAG >/dev/null 2>&1
+    then
+      export TRAVIS_TAG=$LATEST_MS_TAG
+    else
+      git config --local user.name "Travis CI"
+      git config --local user.email "builds@travis-ci.com"
+      git tag $LATEST_MS_TAG
+    fi
   fi
 fi
 

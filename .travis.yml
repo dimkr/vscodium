@@ -1,0 +1,63 @@
+jobs:
+  include:
+    - os: linux
+      env:
+        - VSCODE_ARCH=x64
+        - OS_NAME=linux
+      dist: trusty
+    - os: linux
+      env:
+        - VSCODE_ARCH=arm64
+        - OS_NAME=linux
+      dist: trusty
+    - os: linux
+      env:
+        - VSCODE_ARCH=arm
+        - OS_NAME=linux
+      dist: trusty
+    - os: osx
+      osx_image: xcode12
+      env: OS_NAME=osx
+
+env: GITHUB_ENV=/dev/null
+language: node_js
+node_js: "12.14.1"
+
+install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
+  - . install_deps.sh
+  - . get_repo.sh
+  - . check_tags.sh
+
+script:
+  - ./build.sh
+
+before_deploy:
+  - ./sign_mac_app.sh
+  - ./create_zip.sh
+  - ./create_dmg.sh
+  - ./sum.sh
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  overwrite: true
+  name: $LATEST_MS_TAG
+  token: $GITHUB_TOKEN
+  file_glob: true
+  file:
+    - ./*.sha256
+    - ./*.zip
+    - ./*.tar.gz
+    - ./*.dmg
+    - ./*.deb
+    - ./*.rpm
+    - ./*.AppImage
+    - ./*.AppImage.zsync
+  on:
+    all_branches: true
+    condition: $SHOULD_BUILD = yes
+
+    # after_deploy:
+    #   - ./update_version.sh
