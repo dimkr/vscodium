@@ -3,7 +3,6 @@
 set -e
 
 if [[ "$TRAVIS" == "true" ]]; then
-then
   REPOSITORY=${TRAVIS_REPO_SLUG:-"VSCodium/vscodium"}
 else
   REPOSITORY=${GITHUB_REPOSITORY:-"VSCodium/vscodium"}
