@@ -46,5 +46,7 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
     . ../create_appimage.sh
   fi
 
+  strings `find -name pty.node` | grep libstdc
+
   cd ..
 fi
