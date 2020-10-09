@@ -98,7 +98,7 @@ git remote rm origin
 git remote add origin https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${VERSIONS_REPO}.git > /dev/null 2>&1
 cd ..
 
-if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+if [[ "$OS_NAME" == "osx" ]]; then
   # zip, sha1, and sha256 files are all at top level dir
   ASSET_NAME=VSCodium-darwin-${LATEST_MS_TAG}.zip
   VERSION_PATH="darwin"
@@ -106,28 +106,28 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
   updateLatestVersion "$VERSION_PATH" "$JSON"
 elif [[ "$CI_WINDOWS" == "True" ]]; then
   # system installer
-  ASSET_NAME=VSCodiumSetup-${BUILDARCH}-${LATEST_MS_TAG}.exe
-  VERSION_PATH="win32/${BUILDARCH}/system"
+  ASSET_NAME=VSCodiumSetup-${VSCODE_ARCH}-${LATEST_MS_TAG}.exe
+  VERSION_PATH="win32/${VSCODE_ARCH}/system"
   JSON="$(generateJson ${ASSET_NAME})"
   updateLatestVersion "$VERSION_PATH" "$JSON"
 
   # user installer
-  ASSET_NAME=VSCodiumUserSetup-${BUILDARCH}-${LATEST_MS_TAG}.exe
-  VERSION_PATH="win32/${BUILDARCH}/user"
+  ASSET_NAME=VSCodiumUserSetup-${VSCODE_ARCH}-${LATEST_MS_TAG}.exe
+  VERSION_PATH="win32/${VSCODE_ARCH}/user"
   JSON="$(generateJson ${ASSET_NAME})"
   updateLatestVersion "$VERSION_PATH" "$JSON"
 
   # windows archive
-  ASSET_NAME=VSCodium-win32-${BUILDARCH}-${LATEST_MS_TAG}.zip
-  VERSION_PATH="win32/${BUILDARCH}/archive"
+  ASSET_NAME=VSCodium-win32-${VSCODE_ARCH}-${LATEST_MS_TAG}.zip
+  VERSION_PATH="win32/${VSCODE_ARCH}/archive"
   JSON="$(generateJson ${ASSET_NAME})"
   updateLatestVersion "$VERSION_PATH" "$JSON"
 else # linux
   # update service links to tar.gz file
   # see https://update.code.visualstudio.com/api/update/linux-x64/stable/VERSION
   # as examples
-  ASSET_NAME=VSCodium-linux-${BUILDARCH}-${LATEST_MS_TAG}.tar.gz
-  VERSION_PATH="linux/${BUILDARCH}"
+  ASSET_NAME=VSCodium-linux-${VSCODE_ARCH}-${LATEST_MS_TAG}.tar.gz
+  VERSION_PATH="linux/${VSCODE_ARCH}"
   JSON="$(generateJson ${ASSET_NAME})"
   updateLatestVersion "$VERSION_PATH" "$JSON"
 fi

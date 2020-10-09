@@ -76,7 +76,7 @@ snap install codium
 You can always install using the downloads (deb, rpm, tar) on the [releases page](https://github.com/VSCodium/vscodium/releases), but you can also install using your favorite package manager and get automatic updates. [@paulcarroty](https://github.com/paulcarroty) has set up a repository with instructions [here](https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo). Any issues installing VSCodium using your package manager should be directed to that repository's issue tracker. 
 
 #### <a id="install-on-arch-linux"></a>Install on Arch Linux
-VSCodium is available in [AUR](https://wiki.archlinux.org/index.php/Arch_User_Repository) as package [vscodium-bin](https://aur.archlinux.org/packages/vscodium-bin/), maintained by [@plague-doctor](https://github.com/plague-doctor).
+VSCodium is available in [AUR](https://wiki.archlinux.org/index.php/Arch_User_Repository) as package [vscodium-bin](https://aur.archlinux.org/packages/vscodium-bin/), maintained by [@CRKatri](https://github.com/CRKatri).
 
 #### <a id="flatpak"></a>Flatpak Option (Linux)
 VSCodium is (unofficially) available as a Flatpak app [here](https://flathub.org/apps/details/com.vscodium.codium) and the build repo is [here](https://github.com/flathub/com.vscodium.codium). If your distribution has support for [flatpak](https://flathub.org), and you have enabled the [flathub repo](https://flatpak.org/setup/):
@@ -121,7 +121,7 @@ Please note that some Visual Studio Code extensions have licenses that restrict 
 ### How are the VSCodium binaries built?
 If you would like to see the commands we run to build `vscode` into VSCodium binaries, have a look at the [`.travis.yml` file](https://github.com/VSCodium/vscodium/blob/master/.travis.yml) (for Linux and OS X builds) and the [`win32-build.yml` file](https://github.com/VSCodium/vscodium/blob/master/win32-build.yml) (for Windows builds). These build files call all the other scripts in the repo. If you find something that doesn't make sense, feel free to ask about it [on Gitter](https://gitter.im/VSCodium/Lobby).
 
-The builds are run every day, but exit early if there isn't a new release from Microsoft. To examine the build logs, go [here for Linux / OS X](https://travis-ci.com/VSCodium/vscodium) and [here for Windows](https://dev.azure.com/vscodium/VSCodium/_build?definitionId=1)
+The builds are run every day, but exit early if there isn't a new release from Microsoft.
 
 ## <a id="supported-os"></a>Supported OS
 - [x] OS X (`zip`, `dmg`)

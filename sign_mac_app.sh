@@ -3,7 +3,7 @@
 # thanks to https://www.jviotti.com/2016/03/16/how-to-code-sign-os-x-electron-apps-in-travis-ci.html
 # for the helpful instructions
 # if [[ "$SHOULD_BUILD" == "yes" ]]; then
-#   if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+#   if [[ "$OS_NAME" == "osx" ]]; then
 #     if [ -d "VSCode-darwin" ]; then # just in case the build failed
 #       cd VSCode-darwin
 #       export CERTIFICATE_P12=VSCodium.p12

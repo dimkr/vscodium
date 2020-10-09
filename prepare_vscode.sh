@@ -2,18 +2,18 @@
 
 set -e
 
-export npm_config_arch="$BUILDARCH"
-export npm_config_target_arch="$BUILDARCH"
+export npm_config_arch="$VSCODE_ARCH"
+export npm_config_target_arch="$VSCODE_ARCH"
 
-# cp -rp src/* vscode/
+cp -rp src/* vscode/
 cd vscode || exit
 
-# ../update_settings.sh
+../update_settings.sh
 
 # apply patches
-# patch -u src/vs/platform/update/electron-main/updateService.win32.ts -i ../patches/update-cache-path.patch
+patch -u src/vs/platform/update/electron-main/updateService.win32.ts -i ../patches/update-cache-path.patch
 
-if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+if [[ "$OS_NAME" == "osx" ]]; then
   CHILD_CONCURRENCY=1 yarn --frozen-lockfile --ignore-optional
   npm_config_argv='{"original":["--ignore-optional"]}' yarn postinstall
 else
@@ -21,16 +21,17 @@ else
   yarn postinstall
 fi
 
-if [[ "$BUILDARCH" == *"arm"* ]]; then
+if [[ "$VSCODE_ARCH" == *"arm"* ]]; then
   sed -i -z 's/,\n[^\n]*arm[^\n]*//' node_modules/vscode-sqlite3/binding.gyp
   sed -i "s/Release\/sqlite'/Release\/sqlite.node'/" node_modules/vscode-sqlite3/lib/sqlite3.js
   yarn add -D electron-rebuild
   npx electron-rebuild -f -w vscode-sqlite3
 fi
 
-# mv product.json product.json.bak
+mv product.json product.json.bak
 
 # set fields in product.json
+checksumFailMoreInfoUrl='setpath(["checksumFailMoreInfoUrl"]; "https://go.microsoft.com/fwlink/?LinkId=828886")'
 tipsAndTricksUrl='setpath(["tipsAndTricksUrl"]; "https://go.microsoft.com/fwlink/?linkid=852118")'
 twitterUrl='setpath(["twitterUrl"]; "https://go.microsoft.com/fwlink/?LinkID=533687")'
 requestFeatureUrl='setpath(["requestFeatureUrl"]; "https://go.microsoft.com/fwlink/?LinkID=533482")'
@@ -60,13 +61,13 @@ urlProtocol='setpath(["urlProtocol"]; "vscodium")'
 extensionAllowedProposedApi='setpath(["extensionAllowedProposedApi"]; getpath(["extensionAllowedProposedApi"]) + ["ms-vsliveshare.vsliveshare", "ms-vscode-remote.remote-ssh"])'
 serverDataFolderName='setpath(["serverDataFolderName"]; ".vscode-server-oss")'
 
-product_json_changes="${tipsAndTricksUrl} | ${twitterUrl} | ${requestFeatureUrl} | ${documentationUrl} | ${introductoryVideosUrl} | ${extensionAllowedBadgeProviders} | ${updateUrl} | ${releaseNotesUrl} | ${keyboardShortcutsUrlMac} | ${keyboardShortcutsUrlLinux} | ${keyboardShortcutsUrlWin} | ${quality} | ${extensionsGallery} | ${linkProtectionTrustedDomains} | ${nameShort} | ${nameLong} | ${linuxIconName} | ${applicationName} | ${win32MutexName} | ${win32DirName} | ${win32NameVersion} | ${win32RegValueName} | ${win32AppUserModelId} | ${win32ShellNameShort} | ${win32x64UserAppId} | ${urlProtocol} | ${extensionAllowedProposedApi} | ${serverDataFolderName}"
-# cat product.json.bak | jq "${product_json_changes}" > product.json
+product_json_changes="${checksumFailMoreInfoUrl} | ${tipsAndTricksUrl} | ${twitterUrl} | ${requestFeatureUrl} | ${documentationUrl} | ${introductoryVideosUrl} | ${extensionAllowedBadgeProviders} | ${updateUrl} | ${releaseNotesUrl} | ${keyboardShortcutsUrlMac} | ${keyboardShortcutsUrlLinux} | ${keyboardShortcutsUrlWin} | ${quality} | ${extensionsGallery} | ${linkProtectionTrustedDomains} | ${nameShort} | ${nameLong} | ${linuxIconName} | ${applicationName} | ${win32MutexName} | ${win32DirName} | ${win32NameVersion} | ${win32RegValueName} | ${win32AppUserModelId} | ${win32ShellNameShort} | ${win32x64UserAppId} | ${urlProtocol} | ${extensionAllowedProposedApi} | ${serverDataFolderName}"
+cat product.json.bak | jq "${product_json_changes}" > product.json
 cat product.json
 
-# ../undo_telemetry.sh
+../undo_telemetry.sh
 
-if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+if [[ "$OS_NAME" == "linux" ]]; then
   # microsoft adds their apt repo to sources
   # unless the app name is code-oss
   # as we are renaming the application to vscodium

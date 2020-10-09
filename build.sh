@@ -14,8 +14,8 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
   echo "LATEST_MS_COMMIT: ${LATEST_MS_COMMIT}"
   echo "BUILD_SOURCEVERSION: ${BUILD_SOURCEVERSION}"
 
-  export npm_config_arch="$BUILDARCH"
-  export npm_config_target_arch="$BUILDARCH"
+  export npm_config_arch="$VSCODE_ARCH"
+  export npm_config_target_arch="$VSCODE_ARCH"
 
   ./prepare_vscode.sh
 
@@ -33,22 +33,22 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
   yarn gulp compile-extensions-build
   yarn gulp minify-vscode
 
-  if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+  if [[ "$OS_NAME" == "osx" ]]; then
     yarn gulp vscode-darwin-min-ci
   elif [[ "$CI_WINDOWS" == "True" ]]; then
     cp LICENSE.txt LICENSE.rtf # windows build expects rtf license
-    yarn gulp "vscode-win32-${BUILDARCH}-min-ci"
-    yarn gulp "vscode-win32-${BUILDARCH}-code-helper"
-    yarn gulp "vscode-win32-${BUILDARCH}-inno-updater"
-    yarn gulp "vscode-win32-${BUILDARCH}-archive"
-    yarn gulp "vscode-win32-${BUILDARCH}-system-setup"
-    yarn gulp "vscode-win32-${BUILDARCH}-user-setup"
+    yarn gulp "vscode-win32-${VSCODE_ARCH}-min-ci"
+    yarn gulp "vscode-win32-${VSCODE_ARCH}-code-helper"
+    yarn gulp "vscode-win32-${VSCODE_ARCH}-inno-updater"
+    yarn gulp "vscode-win32-${VSCODE_ARCH}-archive"
+    yarn gulp "vscode-win32-${VSCODE_ARCH}-system-setup"
+    yarn gulp "vscode-win32-${VSCODE_ARCH}-user-setup"
   else # linux
-    yarn gulp vscode-linux-${BUILDARCH}-min-ci
+    yarn gulp vscode-linux-${VSCODE_ARCH}-min-ci
 
-    yarn gulp "vscode-linux-${BUILDARCH}-build-deb"
-    if [[ "$BUILDARCH" == "x64" ]]; then
-      yarn gulp "vscode-linux-${BUILDARCH}-build-rpm"
+    yarn gulp "vscode-linux-${VSCODE_ARCH}-build-deb"
+    if [[ "$VSCODE_ARCH" == "x64" ]]; then
+      yarn gulp "vscode-linux-${VSCODE_ARCH}-build-rpm"
     fi
     . ../create_appimage.sh
   fi

@@ -1,16 +1,23 @@
 jobs:
   include:
     - os: linux
-      env: BUILDARCH=x64
+      env:
+        - VSCODE_ARCH=x64
+        - OS_NAME=linux
       dist: trusty
     - os: linux
-      env: BUILDARCH=arm64
+      env:
+        - VSCODE_ARCH=arm64
+        - OS_NAME=linux
       dist: trusty
     - os: linux
-      env: BUILDARCH=arm
+      env:
+        - VSCODE_ARCH=arm
+        - OS_NAME=linux
       dist: trusty
     - os: osx
       osx_image: xcode12
+      env: OS_NAME=osx
 
 language: node_js
 node_js: "12.14.1"
