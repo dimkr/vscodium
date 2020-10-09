@@ -111,7 +111,7 @@ elif [[ "$CI_WINDOWS" == "True" ]]; then
   updateLatestVersion "$VERSION_PATH" "$JSON"
 
   # user installer
-  ASSET_NAME=VSCodiumUserSetup-${VSCBUILDARCHODE_ARCH}-${LATEST_MS_TAG}.exe
+  ASSET_NAME=VSCodiumUserSetup-${BUILDARCH}-${LATEST_MS_TAG}.exe
   VERSION_PATH="win32/${BUILDARCH}/user"
   JSON="$(generateJson ${ASSET_NAME})"
   updateLatestVersion "$VERSION_PATH" "$JSON"
