@@ -2,6 +2,8 @@
 
 set -ex
 
+SHOULD_BUILD=yes
+
 if [[ "$SHOULD_BUILD" == "yes" ]]; then
   npm config set scripts-prepend-node-path true
 
