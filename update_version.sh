@@ -33,8 +33,7 @@ if [[ "$CI_WINDOWS" == "True" ]]; then
 
   git config --global core.autocrlf true
 else
-  # TRAVIS_REPO_SLUG = e.g. VSCodium/vscodium
-  VERSIONS_REPO=$(echo ${TRAVIS_REPO_SLUG} | awk -F"/" '{ print $1 }')/versions
+  VERSIONS_REPO="${GITHUB_USERNAME}/versions"
 fi
 
 # generateJson <assetName>
@@ -137,7 +136,7 @@ cd versions
 git pull origin master # in case another build just pushed
 git add .
 dateAndMonth=`date "+%D %T"`
-git commit -m "Travis update: $dateAndMonth (Build $TRAVIS_BUILD_NUMBER)"
+git commit -m "CI update: $dateAndMonth (Build $GITHUB_RUN_NUMBER)"
 if ! git push origin master --quiet; then
   git pull origin master
   git push origin master --quiet

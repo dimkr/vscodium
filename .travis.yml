@@ -4,20 +4,25 @@ jobs:
       env:
         - VSCODE_ARCH=x64
         - OS_NAME=linux
+        - GITHUB_ENV=/dev/null
       dist: trusty
     - os: linux
       env:
         - VSCODE_ARCH=arm64
         - OS_NAME=linux
+        - GITHUB_ENV=/dev/null
       dist: trusty
     - os: linux
       env:
         - VSCODE_ARCH=arm
         - OS_NAME=linux
+        - GITHUB_ENV=/dev/null
       dist: trusty
     - os: osx
       osx_image: xcode12
-      env: OS_NAME=osx
+      env:
+        - OS_NAME=osx
+        - GITHUB_ENV=/dev/null
 
 language: node_js
 node_js: "12.14.1"
