@@ -105,20 +105,20 @@ if [[ "$OS_NAME" == "osx" ]]; then
   updateLatestVersion "$VERSION_PATH" "$JSON"
 elif [[ "$CI_WINDOWS" == "True" ]]; then
   # system installer
-  ASSET_NAME=VSCodiumSetup-${VSCODE_ARCH}-${LATEST_MS_TAG}.exe
-  VERSION_PATH="win32/${VSCODE_ARCH}/system"
+  ASSET_NAME=VSCodiumSetup-${BUILDARCH}-${LATEST_MS_TAG}.exe
+  VERSION_PATH="win32/${BUILDARCH}/system"
   JSON="$(generateJson ${ASSET_NAME})"
   updateLatestVersion "$VERSION_PATH" "$JSON"
 
   # user installer
-  ASSET_NAME=VSCodiumUserSetup-${VSCODE_ARCH}-${LATEST_MS_TAG}.exe
-  VERSION_PATH="win32/${VSCODE_ARCH}/user"
+  ASSET_NAME=VSCodiumUserSetup-${VSCBUILDARCHODE_ARCH}-${LATEST_MS_TAG}.exe
+  VERSION_PATH="win32/${BUILDARCH}/user"
   JSON="$(generateJson ${ASSET_NAME})"
   updateLatestVersion "$VERSION_PATH" "$JSON"
 
   # windows archive
-  ASSET_NAME=VSCodium-win32-${VSCODE_ARCH}-${LATEST_MS_TAG}.zip
-  VERSION_PATH="win32/${VSCODE_ARCH}/archive"
+  ASSET_NAME=VSCodium-win32-${BUILDARCH}-${LATEST_MS_TAG}.zip
+  VERSION_PATH="win32/${BUILDARCH}/archive"
   JSON="$(generateJson ${ASSET_NAME})"
   updateLatestVersion "$VERSION_PATH" "$JSON"
 else # linux

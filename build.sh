@@ -16,17 +16,24 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
   echo "LATEST_MS_COMMIT: ${LATEST_MS_COMMIT}"
   echo "BUILD_SOURCEVERSION: ${BUILD_SOURCEVERSION}"
 
-  export npm_config_arch="$VSCODE_ARCH"
-  export npm_config_target_arch="$VSCODE_ARCH"
+  if [[ "$CI_WINDOWS" == "True" ]]; then
+    export npm_config_arch="$BUILDARCH"
+    export npm_config_target_arch="$BUILDARCH"
+  else
+    export npm_config_arch="$VSCODE_ARCH"
+    export npm_config_target_arch="$VSCODE_ARCH"
+  fi
 
   . prepare_vscode.sh
 
   cd vscode || exit
 
   # these tasks are very slow, so using a keep alive to keep travis alive
-  keep_alive &
+  if [[ "$TRAVIS" == "true" ]]; then
+    keep_alive &
 
-  KA_PID=$!
+    KA_PID=$!
+  fi
 
   yarn monaco-compile-check
   yarn valid-layers-check
@@ -39,12 +46,12 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
     yarn gulp vscode-darwin-min-ci
   elif [[ "$CI_WINDOWS" == "True" ]]; then
     cp LICENSE.txt LICENSE.rtf # windows build expects rtf license
-    yarn gulp "vscode-win32-${VSCODE_ARCH}-min-ci"
-    yarn gulp "vscode-win32-${VSCODE_ARCH}-code-helper"
-    yarn gulp "vscode-win32-${VSCODE_ARCH}-inno-updater"
-    yarn gulp "vscode-win32-${VSCODE_ARCH}-archive"
-    yarn gulp "vscode-win32-${VSCODE_ARCH}-system-setup"
-    yarn gulp "vscode-win32-${VSCODE_ARCH}-user-setup"
+    yarn gulp "vscode-win32-${BUILDARCH}-min-ci"
+    yarn gulp "vscode-win32-${BUILDARCH}-code-helper"
+    yarn gulp "vscode-win32-${BUILDARCH}-inno-updater"
+    yarn gulp "vscode-win32-${BUILDARCH}-archive"
+    yarn gulp "vscode-win32-${BUILDARCH}-system-setup"
+    yarn gulp "vscode-win32-${BUILDARCH}-user-setup"
   else # linux
     yarn gulp vscode-linux-${VSCODE_ARCH}-min-ci
 
@@ -56,7 +63,9 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
     . ../create_appimage.sh
   fi
 
-  kill $KA_PID
+  if [[ "$TRAVIS" == "true" ]]; then
+    kill $KA_PID
+  fi
 
   cd ..
 fi

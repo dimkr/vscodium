@@ -2,7 +2,7 @@
 
 set -e
 
-if [ -n "$TRAVIS_REPO_SLUG" ]
+if [[ "$TRAVIS" == "true" ]]; then
 then
   REPOSITORY=${TRAVIS_REPO_SLUG:-"VSCodium/vscodium"}
 else
@@ -72,8 +72,7 @@ if [ "$GITHUB_TOKEN" != "" ]; then
     echo "Release assets do not exist at all, continuing build"
     export SHOULD_BUILD="yes"
   fi
-  if [ -n "$TRAVIS_REPO_SLUG" ]
-  then
+  if [[ "$TRAVIS" == "true" ]]; then
     if git rev-parse $LATEST_MS_TAG >/dev/null 2>&1
     then
       export TRAVIS_TAG=$LATEST_MS_TAG
