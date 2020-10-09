@@ -51,7 +51,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           npm_config_arch: ${{ matrix.npm_arch }}
         run: ./build.sh
-        if: env.SHOULD_BUILD == 'yes'
 
       - name: Zip release
         run: |
