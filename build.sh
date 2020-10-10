@@ -2,6 +2,13 @@
 
 set -ex
 
+function keep_alive() {
+  while true; do
+    date
+    sleep 60
+  done
+}
+
 if [[ "$SHOULD_BUILD" == "yes" ]]; then
   npm config set scripts-prepend-node-path true
 
@@ -17,6 +24,12 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
   . prepare_vscode.sh
 
   cd vscode || exit
+
+  # these tasks are very slow, so using a keep alive to keep travis alive
+  if [[ "$TRAVIS" == "true" ]]; then
+    keep_alive &
+    KA_PID=$!
+  fi
 
   yarn monaco-compile-check
   yarn valid-layers-check
@@ -40,6 +53,10 @@ if [[ "$SHOULD_BUILD" == "yes" ]]; then
     yarn gulp "vscode-linux-${VSCODE_ARCH}-build-deb"
     yarn gulp "vscode-linux-${VSCODE_ARCH}-build-rpm"
     . ../create_appimage.sh
+  fi
+
+  if [[ "$TRAVIS" == "true" ]]; then
+    kill $KA_PID
   fi
 
   cd ..
